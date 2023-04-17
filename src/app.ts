@@ -1,3 +1,19 @@
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const response = await fetch("http://localhost:8010/tasks", {
+      method: "GET",
+      credentials: "include"
+    });
+    const tasks = await response.json();
+    await displayTodoList(tasks);
+    console.log(tasks); // or do something with tasks
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
 // Define an interface for our to-do item
 interface TodoItem {
   id: number;
@@ -9,37 +25,37 @@ interface TodoItem {
 let todoList: TodoItem[] = [];
 
 // Function to add a new to-do item to the list
-export function addTodoItem(task: string) {
-  const newTodoItem: TodoItem = {
-    id: todoList.length + 1,
-    task,
-    completed: false,
-  };
-  todoList.push(newTodoItem);
-  displayTodoList();
-}
+// export function addTodoItem(task: string) {
+//   const newTodoItem: TodoItem = {
+//     id: todoList.length + 1,
+//     task,
+//     completed: false,
+//   };
+//   todoList.push(newTodoItem);
+//   displayTodoList();
+// }
 
-// Function to mark a to-do item as completed
-export function completeTodoItem(id: number) {
-  const todoItem = todoList.find((item) => item.id === id);
-  if (todoItem) {
-    todoItem.completed = true;
-    displayTodoList();
-  }
-}
+// // Function to mark a to-do item as completed
+// export function completeTodoItem(id: number) {
+//   const todoItem = todoList.find((item) => item.id === id);
+//   if (todoItem) {
+//     todoItem.completed = true;
+//     displayTodoList();
+//   }
+// }
 
-// Function to delete a completed to-do item
-export function deleteCompletedTodoItems() {
-  todoList = todoList.filter((item) => !item.completed);
-  displayTodoList();
-}
+// // Function to delete a completed to-do item
+// export function deleteCompletedTodoItems() {
+//   todoList = todoList.filter((item) => !item.completed);
+//   displayTodoList();
+// }
 
 // Function to display the to-do list
-function displayTodoList() {
+function displayTodoList(todoList : any) {
   const taskList = document.getElementById('taskList')!;
   taskList.innerHTML = '';
 
-  todoList.forEach((item) => {
+  todoList.forEach((item : any ) => {
     const li = document.createElement('li');
     
     const span = document.createElement('span');
@@ -50,14 +66,14 @@ function displayTodoList() {
     completeButton.innerText = 'Complete';
     completeButton.id = `completeButton-${item.id}`;
     completeButton.className = `complete`;
-    completeButton.addEventListener('click', () => completeTodoItem(item.id));
+    // completeButton.addEventListener('click', () => completeTodoItem(item.id));
     li.appendChild(completeButton);
 
     const deleteButton = document.createElement('button');
     deleteButton.innerText = 'Delete';
     deleteButton.id = `deleteButton-${item.id}`;
     deleteButton.className = `delete`;
-    deleteButton.addEventListener('click', () => deleteTodoItem(item.id));
+    // deleteButton.addEventListener('click', () => deleteTodoItem(item.id));
     li.appendChild(deleteButton);
 
     if (item.completed) {
@@ -70,25 +86,25 @@ function displayTodoList() {
 
 
 
-// Event listener to handle form submission
-const form = document.getElementById('addTaskBtn')!;
-form.addEventListener('click', (event) => {
-  event.preventDefault();
-  const taskInput = document.getElementById('taskInput') as HTMLInputElement;
-  const task = taskInput.value.trim();
-  if (task) {
-    addTodoItem(task);
-    taskInput.value = '';
-    taskInput.focus();
-  }
-});
-function deleteTodoItem(id: number) {
-  const todoIndex = todoList.findIndex((item) => item.id === id);
-  if (todoIndex >= 0) {
-    todoList.splice(todoIndex, 1);
-    displayTodoList();
-  }
-}
+// // Event listener to handle form submission
+// const form = document.getElementById('addTaskBtn')!;
+// form.addEventListener('click', (event) => {
+//   event.preventDefault();
+//   const taskInput = document.getElementById('taskInput') as HTMLInputElement;
+//   const task = taskInput.value.trim();
+//   if (task) {
+//     addTodoItem(task);
+//     taskInput.value = '';
+//     taskInput.focus();
+//   }
+// });
+// function deleteTodoItem(id: number) {
+//   const todoIndex = todoList.findIndex((item) => item.id === id);
+//   if (todoIndex >= 0) {
+//     todoList.splice(todoIndex, 1);
+//     displayTodoList();
+//   }
+// }
 
-// Initial display of the to-do list
-displayTodoList();
+// // Initial display of the to-do list
+// displayTodoList();
