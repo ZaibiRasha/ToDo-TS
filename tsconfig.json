@@ -2,11 +2,16 @@
     "compilerOptions": {
       "target": "es5",
       "module": "commonjs",
-      "outDir": "./dist",
+      "outDir": "js",
       "sourceMap": true,
       "strict": true,
       "esModuleInterop": true,
-      "experimentalDecorators": true
+      "experimentalDecorators": true,
+      "noImplicitAny": true,                       /* Raise error on expressions and declarations with an implied 'any' type. */
+      "strictNullChecks": true,                    /* Enable strict null checks. */
+      "skipLibCheck": true,                           /* Skip type checking of declaration files. */
+      "forceConsistentCasingInFileNames": true,        /* Disallow inconsistently-cased references to the same file. */
+      "watch": true
     },
     "include": [
       "src/**/*"
