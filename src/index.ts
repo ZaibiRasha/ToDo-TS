@@ -48,7 +48,6 @@ if (form) {
     }
   });
 }
-if(taskInput)
 // Function to display the to-do list
 async function displayTodoList() {
   try {
@@ -83,7 +82,9 @@ async function displayTodoList() {
       completeButton.innerText = "Complete";
       completeButton.id = `completeButton-${item.id}`;
       completeButton.className = `complete`;
-      completeButton.addEventListener("click", () => completeTodoItem(item.id));
+      if (!item.completed){
+        completeButton.addEventListener("click", () => completeTodoItem(item.id));
+      }
       li.appendChild(completeButton);
 
       const deleteButton = document.createElement("button");
